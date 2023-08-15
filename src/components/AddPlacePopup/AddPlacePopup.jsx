@@ -1,15 +1,21 @@
+import { useEffect } from "react"
 import useFormValidation from "../../utils/useFormValidation"
+import Input from "../Input/Input"
 import PopupWithForm from "../PopupWithForm/PopupWithForm"
 
 function AddPlacePopup ({ open, onClose, onAddPlace }) {
     const {values, errors, isValid, isInputValid, handleChange, reset } = useFormValidation()
 
-
-
-    function resetForPopup() {
-        onClose()
+    useEffect(() => {
+      if (open) {
         reset()
-    }
+      }
+    }, [open, reset])
+
+    // function resetForPopup() {
+    //     onClose()
+    //     reset()
+    // }
 
     function handleSubmit (event) {
         event.preventDefault()
@@ -22,11 +28,11 @@ function AddPlacePopup ({ open, onClose, onAddPlace }) {
           title="Новое место"
           formButton="Создать"
           open={open}
-          onClose={resetForPopup}
+          onClose={onClose}
           isValid={isValid}
           onSubmit={handleSubmit}
         >
-          <input
+          <Input
             required=""
             id="input-title"
             className={`form__subtitle form__subtitle_card_title ${isInputValid.name === undefined || isInputValid.name ? '' : 'form__subtitle__invalid'}`}
@@ -37,9 +43,11 @@ function AddPlacePopup ({ open, onClose, onAddPlace }) {
             maxLength={30}
             onChange={handleChange}
             value={values.name ? values.name : ''}
+            error={errors.name}
+            isInputValid={isInputValid.title}
           />
-          <span id="input-title-error" className="error-message">{errors.name}</span>
-          <input
+
+          <Input
             required=""
             id="input-link"
             className={`form__subtitle form__subtitle_card_image ${isInputValid.link === undefined || isInputValid.link ? '' : 'form__subtitle__invalid'}`}
@@ -48,8 +56,9 @@ function AddPlacePopup ({ open, onClose, onAddPlace }) {
             placeholder="Ссылка на картинку"
             onChange={handleChange}
             value={values.link ? values.link : ''}
+            error={errors.link}
+            isInputValid={isInputValid.link}
           />
-          <span id="input-link-error" className="error-message">{errors.link}</span>
         </PopupWithForm>
     )
 }
