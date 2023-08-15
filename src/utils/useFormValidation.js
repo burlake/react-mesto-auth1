@@ -15,7 +15,9 @@ function useFormValidation () {
         const valid = event.target.validity.valid
         const form = event.target.form  //воспринимает как 2 разных инпута = 2 разные форма - откладываю
 
-        //console.log(form)
+        setIsInputValid((oldIsInputValid) => {
+            return { ...oldIsInputValid, [name]: valid}
+        })
 
         setValues((oldValues) => {
             return { ...oldValues, [name]: value}
@@ -26,11 +28,6 @@ function useFormValidation () {
         })
 
         setIsValid(form.checkValidity())
-
-        setIsInputValid((oldIsInputValid) => {
-            return { ...oldIsInputValid, [name]: valid}
-        })
-
     }
 
  function reset (data = {}) {
@@ -51,3 +48,15 @@ function useFormValidation () {
 }
 
 export default useFormValidation
+
+
+// const reset = useCallback((data = {}) => {
+//     setValues(data)
+//     setErrors({})
+//     setIsValid(false)
+//     setIsInputValid({})
+//   }, [])
+
+//   return { values, errors, isValid, isInputValid, handleChange, reset }
+
+// вместо reset и setValue

@@ -9,6 +9,8 @@ import api from "../utils/api.js";
 import EditProfilePopup from "./EditProfilePopup/EditProfilePopup.jsx";
 import EditAvatarPopup from "./EditAvatarPopup/EditAvatarPopup.jsx";
 import AddPlacePopup from "./AddPlacePopup/AddPlacePopup.jsx";
+import SendContext from "../contexts/SendContext.js";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   // стейты попапов
@@ -180,6 +182,17 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
 
       <div className="page__container">
+
+        <SendContext.Provider>
+          <Routes>
+            <Route>
+              
+            </Route>
+          </Routes>
+
+        </SendContext.Provider>
+        
+        
         <Header />
 
         <Main

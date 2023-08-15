@@ -9,6 +9,11 @@ class Api {
         return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
     }
 
+    _request(url, options) {
+        return fetch(`${this._url}${url}`, options)
+          .then(this._checkResponse)
+      }
+
     getInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: {
@@ -70,26 +75,6 @@ class Api {
             }
         }).then(this._checkResponse);
     }
-
-    // addLike(cardId) {
-    //     return fetch (`${this._url}/cards/${cardId}/likes`, {
-    //         method: 'PUT',
-    //         headers: {
-    //             authorization: this._authorization,
-    //         }
-    //     })
-    //     .then(this._checkResponse)
-    // }
-
-    // deleteLike(cardId) {
-    //     return fetch (`${this._url}/cards/${cardId}/likes`, {  //альтернатива`-  ссылка
-    //         method: 'DELETE',
-    //         headers: {
-    //             authorization: this._authorization,
-    //         }
-    //     })
-    //     .then(this._checkResponse)
-    // }
 
     deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
