@@ -1,5 +1,6 @@
-import { useContext } from 'react'
-import SendContext from '../../contexts/SendContext'
+import { useContext } from "react"
+import SendContext from '../../contexts/SendContext.js'
+import './Input.css'
 
 export default function Input({ name, type, placeholder, minLength, maxLength, isInputValid, value, onChange, error }) {
   const isSend = useContext(SendContext)
@@ -22,7 +23,7 @@ export default function Input({ name, type, placeholder, minLength, maxLength, i
         disabled={isSend}
       />
       <span className={
-        `${name === 'password' || name === 'email' ? 'login__error' : 'error-message'}`}>{error}</span>
+        `${name === 'password' || name === 'email' ? 'login__error' : 'popup__error'}`}>{error}</span>
     </>
   )
 }
