@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import useFormValidation from "../../utils/useFormValidation"
 import Input from "../Input/Input"
 import PopupWithForm from "../PopupWithForm/PopupWithForm"
@@ -6,16 +5,10 @@ import PopupWithForm from "../PopupWithForm/PopupWithForm"
 function AddPlacePopup ({ open, onClose, onAddPlace }) {
     const {values, errors, isValid, isInputValid, handleChange, reset } = useFormValidation()
 
-    useEffect(() => {
-      if (open) {
+    function resetForPopup() {
+        onClose()
         reset()
-      }
-    }, [open, reset])
-
-    // function resetForPopup() {
-    //     onClose()
-    //     reset()
-    // }
+    }
 
     function handleSubmit (event) {
         event.preventDefault()
@@ -28,13 +21,12 @@ function AddPlacePopup ({ open, onClose, onAddPlace }) {
           title="Новое место"
           formButton="Создать"
           open={open}
-          onClose={onClose}
+          onClose={resetForPopup} 
           isValid={isValid}
           onSubmit={handleSubmit}
         >
           <Input
             required=""
-            id="input-title"
             className={`form__subtitle form__subtitle_card_title ${isInputValid.name === undefined || isInputValid.name ? '' : 'form__subtitle__invalid'}`}
             type="text"
             name="name"
@@ -49,7 +41,6 @@ function AddPlacePopup ({ open, onClose, onAddPlace }) {
 
           <Input
             required=""
-            id="input-link"
             className={`form__subtitle form__subtitle_card_image ${isInputValid.link === undefined || isInputValid.link ? '' : 'form__subtitle__invalid'}`}
             type="url"
             name="link"

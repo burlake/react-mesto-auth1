@@ -21,6 +21,7 @@ export default function Input({ name, type, placeholder, minLength, maxLength, i
         value={value ? value : ''}
         onChange={onChange}
         disabled={isSend}
+        autoComplete="current-password"
       />
       <span className={
         `${name === 'password' || name === 'email' ? 'login__error' : 'popup__error'}`}>{error}</span>

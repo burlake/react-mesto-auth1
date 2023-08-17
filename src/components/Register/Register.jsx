@@ -6,8 +6,8 @@ import Input from "../Input/Input";
 export default function Register({ handleRegister }) {
   const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
 
-  function onRegister(evt) {
-    evt.preventDefault()
+  function onRegister(event) {
+    event.preventDefault()
     handleRegister(values.password, values.email)
   }
 
@@ -21,6 +21,7 @@ export default function Register({ handleRegister }) {
         onChange={handleChange}
         isInputValid={isInputValid.email}
         error={errors.email}
+        autocomplete="current-password"
       />
       <Input
         name='password'
@@ -31,6 +32,7 @@ export default function Register({ handleRegister }) {
         onChange={handleChange}
         isInputValid={isInputValid.password}
         error={errors.password}
+        autocomplete="current-password"
       />
     </RegistrationForm>
   )
