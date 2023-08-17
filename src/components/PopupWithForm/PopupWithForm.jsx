@@ -4,7 +4,6 @@ function PopupWithForm({ name, title, formButton, children, open, onClose, onSub
       <div className="popup__content" onClick={(event => event.stopPropagation())}>
         <button
           className="popup__close-button popup__close-button_type_edit"
-          id="close-button"
           type="button"
           aria-label="Закрыть"
           onClick={onClose}
@@ -12,7 +11,7 @@ function PopupWithForm({ name, title, formButton, children, open, onClose, onSub
         <h2 className="popup__title">{title}</h2>
         <form className="form form_edit" action="#" name={name} onSubmit={onSubmit}>
           {children}
-          <button id="submit_form_edit" className={`form__button ${isValid ? '' : 'form__button_disabled'}`} type="submit" >
+          <button className={`form__button ${isValid ? '' : 'form__button_disabled'}`} type="submit" >
             {formButton} 
           </button>
         </form> 

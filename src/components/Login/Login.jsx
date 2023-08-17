@@ -21,6 +21,7 @@ export default function Login({ handleLogin }) {
         onChange={handleChange}
         isInputValid={isInputValid.email}
         error={errors.email}
+        autocomplete="current-password"
       />
       <Input
         name='password'
@@ -31,6 +32,7 @@ export default function Login({ handleLogin }) {
         onChange={handleChange}
         isInputValid={isInputValid.password}
         error={errors.password}
+        autocomplete="current-password"
       />
     </RegistrationForm>
   )

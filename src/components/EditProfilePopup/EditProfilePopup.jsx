@@ -34,7 +34,6 @@ function EditProfilePopup({open, onClose, onUpdateUser}) {
     >
       <input
         required=""
-        id="input-name"
         className={`form__subtitle form__subtitle_text_name ${isInputValid.name === undefined || isInputValid.name ? '' : 'form__subtitle__invalid'}`}
         type="text"
         name="name"
@@ -47,7 +46,6 @@ function EditProfilePopup({open, onClose, onUpdateUser}) {
       <span id="input-name-error" className="error-message">{errors.name}</span>
       <input
         required=""
-        id="input-occupation"
         className={`form__subtitle form__subtitle_text_job ${isInputValid.about === undefined || isInputValid.about ? '' : 'form__subtitle__invalid'}`}
         type="text"
         name="about"

@@ -29,7 +29,6 @@ function EditAvatarPopup({open, onClose, onUpdateAvatar }) {
       <input
         ref={input}
         required=""
-        id="input-avatar"
         className={`form__subtitle ${isInputValid.avatar === undefined || isInputValid.avatar ? '' : 'form__subtitle__invalid'}`}
         type="url"
         name="avatar"
