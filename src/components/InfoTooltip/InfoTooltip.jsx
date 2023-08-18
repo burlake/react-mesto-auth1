@@ -33,9 +33,7 @@ function InfoToolTip(props) {
           </>
         )}
 
-        <button type="button" className="popup__close" onClick={props.onClose}>
-          <img src={closeIcon} alt="кнопка закрытия попапа" />
-        </button>
+        <button type="button" className="popup__close-button" onClick={props.onClose}></button>
       </div>
     </div>
   );

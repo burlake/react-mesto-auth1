@@ -8,7 +8,7 @@
   border-radius: 10px;
   box-sizing: border-box;
   position: relative;
-  min-height: 272px;
+  
 
 }
 
@@ -20,5 +20,5 @@
 }
 
 .popup__content:last-child {
-  min-height: 181px;
+  min-height: 330px;
 }
