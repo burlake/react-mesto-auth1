@@ -37,8 +37,11 @@ function App() {
   const [deleteCardId, setDeleteCardId] = useState("");
 
   //стейты регистрации и логина
-  const [isInfoToolTipPopupOpen, setInfoToolTipPopupOpen] = useState(false);
-  const [isSuccessful, setIsSuccessful] = useState(false);
+  // const [isInfoToolTipPopupOpen, setInfoToolTipPopupOpen] = useState(false);
+  // const [isSuccessful, setIsSuccessful] = useState(false);
+
+  const [popupState, setPopupState] = useState("close"); // "close" | "success" | "failure"
+
   const [isError, setIsError] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -49,7 +52,7 @@ function App() {
     isEditAvatarPopupOpen ||
     isDeletePlacePopupOpen ||
     isImageCardChoose ||
-    isSuccessful ||
+    // isSuccessful ||
     isError;
 
   const setCloseAllPopups = useCallback(() => {
@@ -59,9 +62,10 @@ function App() {
     setIsImageCardChoose(false);
     setSelectedCard(null);
     setIsDeletePlacePopupOpen(false);
-    setIsSuccessful(false);
+    // setIsSuccessful(false);
+    setPopupState("close")
     setIsError(false);
-    setInfoToolTipPopupOpen(false);
+    // setInfoToolTipPopupOpen(false);
   }, []);
 
   function handleCardLike(card) {
@@ -255,11 +259,13 @@ function App() {
     setIsSend(true)
     authorization(password, email)
       .then((res) => {
+        setIsSend(false);
         localStorage.setItem("jwt", res.token);
         setLoggedIn(true);
         navigate("/");
       })
       .catch((error) => {
+        setIsSend(false);
         setIsError(true);
         console.log(`Ошибкак при авторизации: ${error}`);
       })
@@ -269,16 +275,20 @@ function App() {
     setIsSend(true)
     auth(password, email)
       .then((res) => {
-        setInfoToolTipPopupOpen(true);
-        setIsSuccessful(true);
-        navigate("/sign-in");
+        setIsSend(false);
+        setPopupState("success");
+        // setIsSuccessful(true);
+        // setInfoToolTipPopupOpen(true);
+        navigate("/sign-in"); //авторизации пользователя.
       })
       .catch((error) => {
-        setIsError(true);
+        setIsSend(false);
+        setPopupState("failure");
+        // setIsError(true);
+        // setIsSuccessful(false);
+        // setInfoToolTipPopupOpen(true);
         console.log(`Ошибкак при регистрации: ${error}`);
       },
-      setInfoToolTipPopupOpen(true),
-      setIsSuccessful(false)
 
       )};
 
@@ -363,11 +373,17 @@ function App() {
           />
         </SendContext.Provider>
 
-        <InfoTooltip
-          open={isInfoToolTipPopupOpen}
+        {popupState === "success" && <InfoTooltip
+          open={true}
           onClose={closeAllPopups}
-          isSuccess={isSuccessful}
-        />
+          isSuccess={true}
+        />}
+
+        {popupState === "failure" && <InfoTooltip
+          open={true}
+          onClose={closeAllPopups}
+          isSuccess={false}
+        />}
       </div>
     </CurrentUserContext.Provider>
   );
