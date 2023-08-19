@@ -26,7 +26,7 @@ function App() {
   const [isImageCardChoose, setIsImageCardChoose] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = useState(false);
-  const [isSend, setIsSend] = useState(false)
+  const [isSend, setIsSend] = useState(false);
 
   // стейты контекста
   const [currentUser, setCurrentUser] = useState({}); //пустой объект
@@ -63,7 +63,7 @@ function App() {
     setSelectedCard(null);
     setIsDeletePlacePopupOpen(false);
     // setIsSuccessful(false);
-    setPopupState("close")
+    setPopupState("close");
     setIsError(false);
     // setInfoToolTipPopupOpen(false);
   }, []);
@@ -103,15 +103,7 @@ function App() {
     };
     document.addEventListener("keydown", closePopupByEsc);
     return () => document.removeEventListener("keydown", closePopupByEsc);
-  }, [
-    isEditProfilePopupOpen,
-    isEditAvatarPopupOpen,
-    isAddPlacePopupOpen,
-    isImageCardChoose,
-    selectedCard,
-    isDeletePlacePopupOpen,
-    isDeletePlacePopupOpen,
-  ]);
+  }, [open]);
 
   const closePopupByOverlay = useCallback(
     //ready
@@ -121,15 +113,7 @@ function App() {
         setCloseAllPopups();
       }
     },
-    [
-      isEditProfilePopupOpen,
-      isEditAvatarPopupOpen,
-      isAddPlacePopupOpen,
-      isImageCardChoose,
-      selectedCard,
-      isDeletePlacePopupOpen,
-      isDeletePlacePopupOpen,
-    ]
+    [open]
   );
 
   const closeAllPopups = useCallback(() => {
@@ -256,7 +240,7 @@ function App() {
   }
 
   function handleLogin(password, email) {
-    setIsSend(true)
+    setIsSend(true);
     authorization(password, email)
       .then((res) => {
         setIsSend(false);
@@ -268,11 +252,13 @@ function App() {
         setIsSend(false);
         setIsError(true);
         console.log(`Ошибкак при авторизации: ${error}`);
-      })
+      });
   }
 
+  console.log("handleLogin", handleLogin);
+
   function handleRegister(password, email) {
-    setIsSend(true)
+    setIsSend(true);
     auth(password, email)
       .then((res) => {
         setIsSend(false);
@@ -288,52 +274,58 @@ function App() {
         // setIsSuccessful(false);
         // setInfoToolTipPopupOpen(true);
         console.log(`Ошибкак при регистрации: ${error}`);
-      },
+      });
+  }
 
-      )};
+  // function handleLogout (){
+  //   localStorage.removeItem('jwt');
+  //   setDataUser('');
+  //   setLoggedIn(false);
+  // } loggedOut={handleLogout}
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
-        <SendContext.Provider value={isSend}>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute
-                  onEditProfile={handleEditProfileClick}
-                  onAddPlace={handleAddPlaceClick}
-                  onEditAvatar={handleEditAvatarClick}
-                  onTrashButton={handleDeletePlaceClick}
-                  onImageCard={handleImageCard}
-                  cards={userCards}
-                  onCardLike={handleCardLike}
-                  loggedIn={loggedIn}
-                  dataUser={dataUser}
-                />
-              }
-            />
-            <Route
-              path="/sign-up"
-              element={
-                <>
-                  <Header name="signup" />
-                  <Main name="signup" handleRegister={handleRegister} />
-                </>
-              }
-            />
-            <Route
-              path="/sign-in"
-              element={
-                <>
-                  <Header name="signin" />
-                  <Main name="signin" handleLogin={handleLogin} />
-                </>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </SendContext.Provider>
+        <Header dataUser={dataUser} loggedIn={loggedIn} />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute
+                element={Main}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onTrashButton={handleDeletePlaceClick}
+                onImageCard={handleImageCard}
+                cards={userCards}
+                onCardLike={handleCardLike}
+                loggedIn={loggedIn}
+                dataUser={dataUser} //почта
+              />
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <>
+                <Header name="signup" />
+                <Main name="signup" handleRegister={handleRegister} />
+              </>
+            }
+          />
+          <Route
+            path="/sign-in"
+            element={
+              <>
+                <Header name="signin" />
+                <Main name="signin" handleLogin={handleLogin} />
+              </>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
 
         <Footer />
 
@@ -373,17 +365,13 @@ function App() {
           />
         </SendContext.Provider>
 
-        {popupState === "success" && <InfoTooltip
-          open={true}
-          onClose={closeAllPopups}
-          isSuccess={true}
-        />}
+        {popupState === "success" && (
+          <InfoTooltip open={true} onClose={closeAllPopups} isSuccess={true} />
+        )}
 
-        {popupState === "failure" && <InfoTooltip
-          open={true}
-          onClose={closeAllPopups}
-          isSuccess={false}
-        />}
+        {popupState === "failure" && (
+          <InfoTooltip open={true} onClose={closeAllPopups} isSuccess={false} />
+        )}
       </div>
     </CurrentUserContext.Provider>
   );
