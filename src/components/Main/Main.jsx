@@ -8,6 +8,7 @@ function Main({ cards, onEditProfile, onEditAvatar, onAddPlace, onTrashButton, o
 
   const currentUser = useContext(CurrentUserContext)
 
+  console.log('handleLogin', handleLogin);
 
   return (
     <main className='main'>

@@ -5,7 +5,7 @@ function getResponseData(res) {
 }
 
 export function auth(password, email) {
-  return fetch(`https://auth.nomoreparties.co/signup`, {
+  return fetch(`${baseUrl}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export function auth(password, email) {
 }
 
 export function authorization(password, email) {
-  return fetch(`https://auth.nomoreparties.co/signin`, {
+  return fetch(`${baseUrl}/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export function authorization(password, email) {
 }
 
 export function getUserData(token) {
-  return fetch(`https://auth.nomoreparties.co/users/me`, {
+  return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
