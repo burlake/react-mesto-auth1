@@ -16,6 +16,7 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 import { getUserData } from "../utils/auth.js";
 import { authorization } from "../utils/auth.js";
 import { auth } from "../utils/auth.js";
+import ProtectedRouteData from "./ProtectedRouteData/ProtectedRouteData.jsx";
 
 function App() {
   const navigate = useNavigate();
@@ -255,8 +256,6 @@ function App() {
       });
   }
 
-  console.log("handleLogin", handleLogin);
-
   function handleRegister(password, email) {
     setIsSend(true);
     auth(password, email)
@@ -281,19 +280,18 @@ function App() {
   //   localStorage.removeItem('jwt');
   //   setDataUser('');
   //   setLoggedIn(false);
-  // } loggedOut={handleLogout}
+  // } 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
-        <Header dataUser={dataUser} loggedIn={loggedIn} />
 
         <Routes>
           <Route
             path="/"
             element={
               <ProtectedRoute
-                element={Main}
+                element={ProtectedRouteData}
                 onEditProfile={handleEditProfileClick}
                 onAddPlace={handleAddPlaceClick}
                 onEditAvatar={handleEditAvatarClick}

@@ -8,8 +8,6 @@
   border-radius: 10px;
   box-sizing: border-box;
   position: relative;
-  
-
 }
 
 @media screen and (max-width: 620px) {
@@ -19,6 +17,6 @@
   }
 }
 
-.popup__content:last-child {
-  min-height: 330px;
+.popup_type_popup_type_delete{
+  min-height: 230px;
 }

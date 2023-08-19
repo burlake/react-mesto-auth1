@@ -5,7 +5,6 @@ import Input from "../Input/Input";
 
 export default function Login({ handleLogin }) {
   const { values, errors, isValid, isInputValid, handleChange, } = useFormValidation()
-  console.log('handleLogin', handleLogin);
   
   function onLogin(evt) {
     evt.preventDefault()

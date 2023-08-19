@@ -1,6 +1,5 @@
 import SuccessIcon from "../../images/successful.svg";
 import FailIcon from "../../images/error.svg";
-import closeIcon from "../../images/exit.svg";
 import React from "react";
 
 function InfoToolTip(props) {
